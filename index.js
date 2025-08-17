@@ -52,7 +52,7 @@ async function connectToWhatsApp(number = null) {
     const sock = makeWASocket({
       version,
       auth: state,
-      printQRInTerminal: false,
+      printQRInTerminal: true,
       connectTimeoutMs: 6000,
       logger: P({ level: "silent" }),
       // syncFullHistory: false,  // Nonaktifkan sinkronisasi riwayat chat
@@ -184,6 +184,8 @@ if (status && status == "connected") {
   flushOutput();
   deleteFolderRecursive(basePath, "sessions");
   rl.question("", (method) => {
+    if (method === "qr" || method === "pairing") {
+      pairingMethod = method;
       if (method === "pairing") {
         console.log(clc.yellow.bold("Masukkan nomor telepon: :"));
         rl.question("", (number) => {
@@ -205,6 +207,3 @@ if (status && status == "connected") {
     }
   });
 }
-
-
-

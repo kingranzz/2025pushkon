@@ -52,7 +52,7 @@ async function connectToWhatsApp(number = null) {
     const sock = makeWASocket({
       version,
       auth: state,
-      printQRInTerminal: true,
+      printQRInTerminal: false,
       connectTimeoutMs: 6000,
       logger: P({ level: "silent" }),
       // syncFullHistory: false,  // Nonaktifkan sinkronisasi riwayat chat
@@ -76,7 +76,7 @@ async function connectToWhatsApp(number = null) {
 async function handleConnectionUpdate(sock, update, number) {
   const { connection, lastDisconnect, qr } = update;
   if (pairingMethod === "qr" && qr) {
-    qrcode.generate(qr, { small: false });
+    qrcode.generate(qr, { small: true });
     console.log(clc.red.bold("Please scan the QR code displayed above."));
   } else if (
     connection &&

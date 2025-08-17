@@ -76,7 +76,7 @@ async function connectToWhatsApp(number = null) {
 async function handleConnectionUpdate(sock, update, number) {
   const { connection, lastDisconnect, qr } = update;
   if (pairingMethod === "qr" && qr) {
-    qrcode.generate(qr, { small: true });
+    qrcode.generate(qr, { small: false });
     console.log(clc.red.bold("Please scan the QR code displayed above."));
   } else if (
     connection &&
@@ -207,3 +207,4 @@ if (status && status == "connected") {
     }
   });
 }
+
